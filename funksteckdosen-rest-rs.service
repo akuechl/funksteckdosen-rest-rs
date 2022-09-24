@@ -1,0 +1,15 @@
+[Unit]
+Description=Rest service for radio-controlled sockets
+After=network-online.target
+ 
+[Service]
+ExecStart=/home/pi/funksteckdosen-rest-rs/target/release/funksteckdosen-rest-rs --port 12345 --bind 0.0.0.0
+WorkingDirectory=/home/pi/funksteckdosen-rest-rs/target/release/
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=funksteckdosen-rest-rs
+Restart=always
+User=pi
+ 
+[Install]
+WantedBy=multi-user.target
