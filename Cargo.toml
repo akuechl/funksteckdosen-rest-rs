@@ -1,0 +1,32 @@
+[package]
+name = "funksteckdosen-rest-rs"
+version = "0.1.0"
+authors = ["Ariel"]
+edition = "2021"
+license = "Apache-2.0"
+keywords = ["funksteckdose", "wiringpi", "radio-controlled", "rest", "raspberrypi"]
+categories = ["web-programming::http-server"]
+description = "A little rest server to use radio-controlled sockets with wiringPi."
+repository = "https://github.com/akuechl/funksteckdosen-rest-rs"
+readme = "README.md"
+homepage = "https://github.com/akuechl/funksteckdosen-rest-rs"
+
+[dependencies]
+funksteckdose = { version="0.1", features=["wiringpi"], optional=true }
+clap = { version="3.2", features=["derive"] }
+rocket = "0.4"
+log = "0.4"
+
+[features]
+# deactivate with --no-default-features
+default = ["wiringpi"]
+wiringpi = ["funksteckdose"]
+
+[profile.release]
+opt-level = 3
+lto = true
+debug = false
+codegen-units = 1
+
+[package.metadata.docs.rs]
+features = ["wiringpi"]
