@@ -15,6 +15,10 @@ At the moment a used library needs the nightly rust compiler.
 rustup override set nightly
 ````
 
+## Download
+
+Several downloads can be found on the [release page](https://github.com/akuechl/funksteckdosen-rest-rs/releases).
+
 ## Starting the server
 
 Starts the server on port 12345 bind to IP 127.0.0.1 (default):
@@ -44,7 +48,7 @@ http://localhost:12345/pin/11100/3/0
 
 * cp file to systemd
 ````
-cp funksteckdosen_rest_rs.service /lib/systemd/system/
+sudo cp funksteckdosen_rest_rs.service /lib/systemd/system/
 ````
 
 * commands
@@ -74,9 +78,25 @@ sudo systemctl disable funksteckdosen-rest-rs.service
 I control the sockets with my [Home Assistant]() instance. For this I use the [rest comand](https://www.home-assistant.io/integrations/rest_command/).
 
 ````
+# configuration.yaml
+#
 rest_command:
         socket_2:
                 url: http://192.168.178.123:12345/pin/11100/2/0
-        socket_3:
-                url: http://192.168.178.123:12345/pin/11100/3/0
+
+# automations.yaml
+# light_living_room is a input_button from helpers
+#
+- id: 'socket_2_auto'
+        alias: Light Living Room
+        description: Red Lamp
+        trigger:
+        - platform: state
+          entity_id:
+                - input_button.light_living_room
+        condition: []
+        action:
+        - service: rest_command.socket_2
+          data: {}
+        mode: single
 ````
