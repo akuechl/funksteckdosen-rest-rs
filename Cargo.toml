@@ -10,6 +10,7 @@ description = "A little rest server to use radio-controlled sockets with wiringP
 repository = "https://github.com/akuechl/funksteckdosen-rest-rs"
 readme = "README.md"
 homepage = "https://github.com/akuechl/funksteckdosen-rest-rs"
+documentation = "https://docs.rs/crate/funksteckdosen-rest-rs/"
 
 [dependencies]
 funksteckdose = { version="0.1", features=["wiringpi"], optional=true }
@@ -18,7 +19,7 @@ rocket = "0.4"
 log = "0.4"
 
 [features]
-# deactivate with --no-default-features
+# deactivate with --no-default-features 
 default = ["wiringpi"]
 wiringpi = ["funksteckdose"]
 
